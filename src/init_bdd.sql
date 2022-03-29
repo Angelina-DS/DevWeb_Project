@@ -11,32 +11,9 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données : `projetdev`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `client`
---
-
-CREATE TABLE `client` (
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `tel` varchar(32) NOT NULL,
-  `mail` varchar(255) NOT NULL,
-  `adresse` varchar(255) NOT NULL,
-  `commentaire` varchar(255) NOT NULL,
-  `identifiant_client` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --
@@ -44,27 +21,27 @@ CREATE TABLE `client` (
 --
 
 CREATE TABLE `connexion` (
-  `identifiant` int(11) NOT NULL,
-  `role` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `role` enum('1','2','3') DEFAULT NULL,
   `login` varchar(16) NOT NULL,
   `cypher` varchar(64) NOT NULL,
-  `enabled` tinyint(4) NOT NULL
+  `enabled` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `horaire`
+-- Structure de la table `patient`
 --
 
-CREATE TABLE `horaire` (
-  `id_medecin` int(11) NOT NULL,
-  `id_horraire` int(11) NOT NULL,
-  `jour` int(11) NOT NULL,
-  `debut_matin` int(11) NOT NULL,
-  `fin_matin` int(11) NOT NULL,
-  `debut_aprem` int(11) NOT NULL,
-  `fin_aprem` int(11) NOT NULL
+CREATE TABLE `patient` (
+  `id_patient` int(11) NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `tel` varchar(32) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  `adresse` varchar(255) NOT NULL,
+  `commentaire` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,12 +51,29 @@ CREATE TABLE `horaire` (
 --
 
 CREATE TABLE `medecin` (
+  `id_medecin` int(11) NOT NULL,
   `nom` varchar(32) NOT NULL,
   `prenom` varchar(32) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `tel` varchar(32) NOT NULL,
-  `bureau` int(11) NOT NULL,
-  `identifant_medecin` int(11) NOT NULL
+  `bureau` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `horaire`
+--
+
+CREATE TABLE `horaire` (
+  `id_horaire` int(11) NOT NULL,
+  `id_medecin` int(11) NOT NULL,
+  `jour` date NOT NULL,
+  `debut_matin` time NOT NULL,
+  `fin_matin` time NOT NULL,
+  `debut_aprem` time NOT NULL,
+  `fin_aprem` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,12 +83,12 @@ CREATE TABLE `medecin` (
 --
 
 CREATE TABLE `rendez_vous` (
-  `identifiant_client` int(11) NOT NULL,
-  `identifiant_medecin` int(11) NOT NULL,
+  `id_rendez_vous` int(11) NOT NULL,
+  `id_patient` int(11) NOT NULL,
+  `id_medecin` int(11) NOT NULL,
   `date` date NOT NULL,
   `heure` time NOT NULL,
-  `commentaire` varchar(255) NOT NULL,
-  `id_rendez_vous` int(11) NOT NULL
+  `commentaire` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -115,16 +109,28 @@ CREATE TABLE `vacances` (
 --
 
 --
--- Index pour la table `client`
---
-ALTER TABLE `client`
-  ADD PRIMARY KEY (`identifiant_client`);
-
---
 -- Index pour la table `connexion`
 --
 ALTER TABLE `connexion`
-  ADD PRIMARY KEY (`identifiant`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `patient`
+--
+ALTER TABLE `patient`
+  ADD PRIMARY KEY (`id_patient`);
+
+--
+-- Index pour la table `patient`
+--
+ALTER TABLE `medecin`
+  ADD PRIMARY KEY (`id_medecin`);
+
+--
+-- Index pour la table `horaire`
+--
+ALTER TABLE `horaire`
+  ADD PRIMARY KEY (`id_horaire`);
 
 --
 -- Index pour la table `rendez_vous`
@@ -143,16 +149,16 @@ ALTER TABLE `vacances`
 --
 
 --
--- AUTO_INCREMENT pour la table `client`
+-- AUTO_INCREMENT pour la table `connexion`
 --
-ALTER TABLE `client`
-  MODIFY `identifiant_client` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `connexion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `connexion`
 --
-ALTER TABLE `connexion`
-  MODIFY `identifiant` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `horaire`
+  MODIFY `id_horaire` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `rendez_vous`
@@ -165,8 +171,38 @@ ALTER TABLE `rendez_vous`
 --
 ALTER TABLE `vacances`
   MODIFY `id_vacances` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- FOREIGN_KEY pour les tables déchargées
+--
+
+--
+-- Index pour la table `patient`
+--
+ALTER TABLE `patient`
+  ADD FOREIGN KEY (id_patient) REFERENCES connexion(id);
+
+--
+-- Index pour la table `patient`
+--
+ALTER TABLE `medecin`
+  ADD FOREIGN KEY (id_medecin) REFERENCES connexion(id);
+
+--
+-- Index pour la table `horaire`
+--
+ALTER TABLE `horaire`
+  ADD FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin);
+
+--
+-- Index pour la table `rendez_vous`
+--
+ALTER TABLE `rendez_vous`
+  ADD FOREIGN KEY (id_patient) REFERENCES patient(id_patient),
+  ADD FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin);
+
+--
+-- Index pour la table `vacances`
+--
+ALTER TABLE `vacances`
+  ADD FOREIGN KEY (id_medecin) REFERENCES medecin(id_medecin);
