@@ -6,7 +6,7 @@ function getPasswordUser($id){
     $req = '
     SELECT cypher
     FROM connexion 
-    WHERE identifiant = :id';
+    WHERE id = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
@@ -21,8 +21,8 @@ function getDataClient($id){
     $req = '
     SELECT * 
     FROM client 
-    INNER JOIN connexion ON client.identifiant_client = connexion.identifiant
-    WHERE identifiant = :id';
+    INNER JOIN connexion ON client.id_client = connexion.identifiant
+    WHERE id = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
@@ -37,8 +37,8 @@ function getDataMedecin($id){
     $req = '
     SELECT * 
     FROM medecin 
-    INNER JOIN connexion ON medecin.identifiant_medecin = connexion.identifiant
-    WHERE identifiant = :id';
+    INNER JOIN connexion ON medecin.id_medecin = connexion.identifiant
+    WHERE id = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
@@ -52,8 +52,8 @@ function updateClientInfo($nom, $prenom, $tel, $mail, $adresse, $com, $id){
     $bdd = connexionPDO();
     $req = '
     UPDATE client 
-    SET (nom, prenom, tel, mail, adresse, commentaire, identifiant_client) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id)
-    WHERE identification_client = :id';
+    SET (nom, prenom, tel, mail, adresse, commentaire, id_client) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id)
+    WHERE id_client = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":nom",$nom,":prenom",$prenom, ":tel", $tel, ":mail", $mail, ":adresse", $adresse, ":com", $com,":id",$id, PDO::PARAM_STR);
     $stmt->execute();
@@ -67,8 +67,8 @@ function updateMedInfo($nom, $prenom, $tel, $mail, $adresse, $com, $id){
     $bdd = connexionPDO();
     $req = '
     UPDATE medecin 
-    SET (nom, prenom, tel, mail, adresse, commentaire, identifiant_medecin) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id)
-    WHERE identification_medecin = :id';
+    SET (nom, prenom, tel, mail, adresse, commentaire, id_medecin) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id)
+    WHERE id_medecin = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":nom",$nom,":prenom",$prenom, ":tel", $tel, ":mail", $mail, ":adresse", $adresse, ":com", $com,":id",$id,PDO::PARAM_STR);
     $stmt->execute();
@@ -117,7 +117,7 @@ function getRdvClient($id){
     $req = '
     SELECT *
     FROM rendez-vous
-    WHERE identification_client = :id';
+    WHERE id_client = :id';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
@@ -132,7 +132,7 @@ function getIndispMedecin($id){
     $req = '
     SELECT jour_debut, jour_fin, date, heure 
     FROM vacances, rendez-vous
-    INNER JOIN rendez-vous ON vacances.id_medecin = rendez-vous.identifiant_medecin
+    INNER JOIN rendez-vous ON vacances.id_medecin = rendez-vous.id_medecin
     WHERE id_medecin = :id ';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id",$id,PDO::PARAM_STR);
@@ -146,7 +146,7 @@ function AddRdv($id_client, $id_med, $date, $heure, $com, $id_rdv){
     // Ajoute un rendez-vous dans la table rendez-vous
     $bdd = connexionPDO();
     $req = '
-    INSERT INTO rendez-vous (identifiant_client, identifiant_medecin, date, heure, commentaire, id_rendez_vous) 
+    INSERT INTO rendez-vous (id_client, id_medecin, date, heure, commentaire, id_rendez_vous) 
     VALUES (:id_client, :id_med, :date, :heure, :com, :id_rdv)';
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":id_client",$id_client,":id_med",$id_med,":date",$date,":heure",$heure,":com",$com,":id_rdv",$id_rdv,PDO::PARAM_STR);
