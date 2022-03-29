@@ -12,6 +12,11 @@ try {
             break;
             case "test": getPageTest();
             break;
+            case "login": getPageLogin();
+            break;
+            case "admin": getPageAdmin();
+            break;
+
 
             case "error301": 
             case "error302": 
