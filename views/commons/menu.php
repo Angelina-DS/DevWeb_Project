@@ -10,7 +10,7 @@
                 Prise de Rendez-Vous
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>docteur_1">Docteur 1</a>
+                <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>?page=test">Docteur 1</a>
                 <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>docteur_2">Docteur 2</a>
                 <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>docteur_3">Docteur 3</a>
             </div>

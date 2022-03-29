@@ -8,3 +8,10 @@ function getPageAccueil(){
 
     require_once "views/front/accueil.view.php";
 }
+
+function getPageTest(){
+    $title = "Page d'accueil";
+    $description = "Pharmacon";
+
+    require_once "views/front/test.php";
+}

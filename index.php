@@ -10,6 +10,9 @@ try {
         switch ($page){
             case "accueil": getPageAccueil();
             break;
+            case "test": getPageTest();
+            break;
+
             case "error301": 
             case "error302": 
             case "error400": 
