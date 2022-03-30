@@ -41,7 +41,8 @@ CREATE TABLE `patient` (
   `tel` varchar(32) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
-  `commentaire` varchar(255) NOT NULL
+  `commentaire` varchar(255) NOT NULL,
+  `naissance` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
