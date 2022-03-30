@@ -9,7 +9,7 @@ echo styleTitreNiveau1("Connexion : à venir ...",COLOR_TITLES);
     <html >
         <body>
             
-            <form action="inscription_traitement.php" method="post">
+            <form action="" method="POST">
 
                 <div class="form-group">
                     <input type="text" name="nom"  placeholder="Nom" required="required" autocomplete="off">
@@ -40,7 +40,7 @@ echo styleTitreNiveau1("Connexion : à venir ...",COLOR_TITLES);
                     <input type="text" name="adresse" placeholder="Adresse" required="required" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <button type="submit">Inscription</button>
+                    <input type="submit" value="Inscription" class="col btn btn-primary">
                 </div>   
 
 
@@ -48,7 +48,10 @@ echo styleTitreNiveau1("Connexion : à venir ...",COLOR_TITLES);
 
 </body></html>
 
-
+<?php if($alert !== ""){ 
+    echo afficherAlert($alert, ALERT_DANGER);
+} 
+?>
 
 <?php
 $content = ob_get_clean();
