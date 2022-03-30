@@ -70,11 +70,11 @@ function getPageInscription(){
         $nom = Securite::secureHTML($_POST['nom']);
         $prenom = Securite::secureHTML($_POST['prenom']);
         $date_naissance = Securite::secureHTML($_POST['date_naissance']);
-        $pseudo = Securite::secureHTML($_POST['pseudo']);
+        $login = Securite::secureHTML($_POST['pseudo']);
         $password = Securite::secureHTML($_POST['password']);
         $password_retype = Securite::secureHTML($_POST['password_retype']);
         $email = Securite::secureHTML($_POST['email']);
-        $telephone = Securite::secureHTML($_POST['telephone']);
+        $tel = Securite::secureHTML($_POST['telephone']);
         $adresse = Securite::secureHTML($_POST['adresse']);
 
 
@@ -86,6 +86,16 @@ function getPageInscription(){
             require_once "views/back/inscription.php";
         }
         else {
+            //Pour créer le compte dans la table connexion
+            $enabled = 1 ;
+            $role = 1;
+            setCompteConnexion($role, $login, $password, $enabled);
+
+            //Pour créer le compte dans la table patient
+            $id = getIdUserByLogin($login)['id'];
+            $commentaire = "No comment";
+            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse,  $date_naissance , $login , $password, $commentaire);
+
             require_once "views/back/login.view.php";
 
         }
