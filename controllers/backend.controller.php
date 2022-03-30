@@ -17,7 +17,7 @@ function getPageLogin(){
         $login = Securite::secureHTML($_POST['login']);
         $password = Securite::secureHTML($_POST['password']);
         if(isConnexionValid($login,$password)){
-            $_SESSION['acces'] = "admin";
+            $_SESSION['acces'] = getRole($login);
             Securite::genereCookiePassword();
             header ("Location: admin");
         } else {

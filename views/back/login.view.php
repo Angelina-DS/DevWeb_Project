@@ -1,6 +1,5 @@
-<?php ob_start();  ?>
-
-<?= styleTitreNiveau1("Login", COLOR_ADMINISTRATION) ?>
+<?php ob_start(); 
+styleTitreNiveau1("Login", COLOR_ADMINISTRATION) ?>
 
 <div class='m-5'>
     <form action="" method="POST">

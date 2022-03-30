@@ -15,6 +15,7 @@
                 <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>docteur_3">Docteur 3</a>
             </div>
         </li>
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= COLOR_ADMINISTRATION ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Administration
