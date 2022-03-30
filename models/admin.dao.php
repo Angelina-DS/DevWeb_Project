@@ -18,7 +18,7 @@ function getPasswordUser($id){
 
 function isConnexionValid($login,$password){
     $person = getPasswordUser($login);
-    if ($person){
+    if ($person != false){
         return password_verify($password,$person['password']);
     }
     return(false);
