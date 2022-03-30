@@ -47,15 +47,15 @@ function getDataMedecin($id){
     return $data;
 }
 
-function updateClientInfo($nom, $prenom, $tel, $mail, $adresse, $com, $id){
+function updateClientInfo($nom, $prenom, $tel, $mail, $adresse, $com, $id, $naissance){
     // Mise à jour d'information patient
     $bdd = connexionPDO();
     $req = '
     UPDATE client 
-    SET (nom, prenom, tel, mail, adresse, commentaire, id_client) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id)
+    SET (nom, prenom, tel, mail, adresse, commentaire, id_client, naissance) = (:nom, :prenom, :tel, :mail, :adresse, :com, :id, :naissance)
     WHERE id_client = :id';
     $stmt = $bdd->prepare($req);
-    $stmt->bindValue(":nom",$nom,":prenom",$prenom, ":tel", $tel, ":mail", $mail, ":adresse", $adresse, ":com", $com,":id",$id, PDO::PARAM_STR);
+    $stmt->bindValue(":nom",$nom,":prenom",$prenom, ":tel", $tel, ":mail", $mail, ":adresse", $adresse, ":com", $com,":id",$id, ":naissance", $naissance, PDO::PARAM_STR);
     $stmt->execute();
     $update = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
