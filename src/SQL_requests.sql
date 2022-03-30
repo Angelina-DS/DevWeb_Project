@@ -1,33 +1,15 @@
 
--- Vérifier authentification : récupérer le cypher à partir dun identifiant de connexion.
-SELECT cypher FROM 'connexion' WHERE identifiant = id
+-- création de 3 médecins 
 
--- Récupérer données patients : récupère les données de la personne à partir de son id de connexion
-SELECT * FROM 'client' INNER JOIN 'connexion' ON client.idclient = connexion.identifiant
+INSERT INTO medecin (nom, prenom, mail, tel, bureau, identifiant_medecin)
+ VALUES 
+('Raoult', 'Didier', 'raoult.didier@gmail.com', '02 99 25 67 40', 27, 1)
+('Livoinier', 'Janine', 'livoinier.janine@aliceadsl.fr', '02 99 34 08 99', 5, 2)
+('Remon', 'Gaétan', 'remon.gaetan@outlook.fr', '06 45 23 87 59', 14, 3)
 
--- Récupérer données médecin : récupère les données de la personne à partir de son id de connexion
-SELECT * FROM 'medecin' INNER JOIN 'connexion' ON medecin.idmedecin = connexion.identifiant
+-- création de 2 clients
 
--- Mise à jour d'information patient : Fournis toutes les info patient et tu les écris dans la base
-UPDATE 'client' SET (nom, prenom, tel, mail, adresse, commentaire, idclient) =  ('DENIS-SIMONI', 'Angelina', '06.95.17.59.86', 'angelina@aliceadsl.fr', '9 rue des pins 34570 Pignan', 'commentaire', 1586 ) WHERE idclient = id
-
--- Mise à jour d'information medecin : Fournis toutes les info médecin et tu les écris dans la base
-UPDATE 'medecin' (nom, prenom, tel, mail, adresse, commentaire, idmedecin) = ('DENIS-SIMONI', 'Angelina', '06.95.17.59.86', 'angelina@aliceadsl.fr', '9 rue des pins 34570 Pignan', 'commentaire', 1586 ) WHERE idmedecin = id
-
--- Possibilité de disable : Update sur le champs enabled 
-UPDATE 'connexion' (enabled) = (0) -- ou (1)
--- entrée : id utilisateur -> sortie update la valeur d'enable en 0 (disabled) ou 1 (enabled)
-
--- Récupérer la liste des médecins et leurs informations.
-SELECT * FROM 'medecin'
-
--- Récupérer la liste des rendez vous d'un patient 
-SELECT * FROM 'rendez_vous' WHERE idclient = id
-
--- La liste des créneaux d'un médecin disponibles (jour exacte, heure de début, heure de fin x2 sur tous les jours pour une semaine donnée (entre 2 dates) pour un docteur (jointure avec les vacances pour exclure les vacances)
-
--- Liste des créneaux indisponibles pour un médecin
-SELECT 'jour_debut', 'jour_fin', 'date', 'heure' FROM 'vacances' WHERE id_medecin = id INNER JOIN 'rendez-vous' ON vacances.id_medecin = rendez-vous.idmedecin
-
--- Ajouter un rendez vous
-INSERT INTO 'rendez-vous' (idclient, idmedecin, date, heure, commentaire, id_rendez_vous) VALUES (id1, id2, 29/03/2022, 15h42, 'commentaire', id3) 
+INSERT INTO client (nom, prenom, tel, mail, commentaire, identifiant_client, naissance)
+ VALUES 
+('Relou', 'Karen', '07 12 34 56 78', 'relou.karen@gmail.com', 'je veux parler au manager', 4, 28/02/1989)
+('Guimonier', 'Guénolé', '06 22 74 78 31', 'guimonier.guenole@outlook.fr', 'merci !', 5, 09/09/1999)
