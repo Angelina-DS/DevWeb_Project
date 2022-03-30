@@ -47,3 +47,49 @@ function getPageAdmin(){
         throw new Exception("Vous n'avez pas le droit d'accéder à cette page");
     }
 }
+
+function getPageInscription(){
+    $title = "Page d'inscription au site";
+    $description = "Page d'inscription";
+
+    //if(Securite::verificationAccess()){
+    //    header ("Location: admin");
+    //}
+    $alert = "";
+
+    if(isset($_POST['nom']) && !empty($_POST['nom']) &&
+    isset($_POST['prenom']) && !empty($_POST['prenom']) &&
+    isset($_POST['date_naissance']) && !empty($_POST['date_naissance']) &&
+    isset($_POST['pseudo']) && !empty($_POST['pseudo']) &&
+    isset($_POST['password']) && !empty($_POST['password']) &&
+    isset($_POST['password_retype']) && !empty($_POST['password_retype']) &&
+    isset($_POST['email']) && !empty($_POST['email']) &&
+    isset($_POST['telephone']) && !empty($_POST['telephone']) &&
+    isset($_POST['adresse']) && !empty($_POST['adresse'])){
+
+        $nom = Securite::secureHTML($_POST['nom']);
+        $prenom = Securite::secureHTML($_POST['prenom']);
+        $date_naissance = Securite::secureHTML($_POST['date_naissance']);
+        $pseudo = Securite::secureHTML($_POST['pseudo']);
+        $password = Securite::secureHTML($_POST['password']);
+        $password_retype = Securite::secureHTML($_POST['password_retype']);
+        $email = Securite::secureHTML($_POST['email']);
+        $telephone = Securite::secureHTML($_POST['telephone']);
+        $adresse = Securite::secureHTML($_POST['adresse']);
+
+
+        if($password != $password_retype){
+            $alert = "Les mots de passes saisis ne correspondent pas";
+            require_once "views/back/inscription.php";
+        } else {
+            require_once "views/back/login.view.php";
+
+        }
+        
+
+
+    }
+
+
+    require_once "views/back/inscription.php";
+}

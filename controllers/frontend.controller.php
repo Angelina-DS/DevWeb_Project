@@ -36,10 +36,3 @@ function getPageAccueilDoctor(){
 
     require_once "views/front/acceuilDoctor.php";
 }
-
-function getPageInscription(){
-    $title = "Page d'accueil";
-    $description = "Pharmacon";
-
-    require_once "views/front/inscription.php";
-}
