@@ -81,11 +81,14 @@ function getPageInscription(){
         if($password != $password_retype){
             $alert = "Les mots de passes saisis ne correspondent pas";
             require_once "views/back/inscription.php";
-        } else {
+        } else if (isNewPseudoValid($pseudo)== false){
+            $alert = "Le pseudo est déjà utilisé";
+            require_once "views/back/inscription.php";
+        }
+        else {
             require_once "views/back/login.view.php";
 
         }
-        
 
 
     }
