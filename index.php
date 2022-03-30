@@ -16,6 +16,8 @@ try {
             break;
             case "admin": getPageAdmin();
             break;
+            case "inscription": getPageInscription();
+            break;
 
 
             case "error301": 
