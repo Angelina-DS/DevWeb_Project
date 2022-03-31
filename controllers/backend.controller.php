@@ -73,7 +73,7 @@ function getPageInscription(){
         $login = Securite::secureHTML($_POST['pseudo']);
         $password = Securite::secureHTML($_POST['password']);
         $password_retype = Securite::secureHTML($_POST['password_retype']);
-        $email = Securite::secureHTML($_POST['email']);
+        $mail = Securite::secureHTML($_POST['email']);
         $tel = Securite::secureHTML($_POST['telephone']);
         $adresse = Securite::secureHTML($_POST['adresse']);
 
@@ -81,7 +81,7 @@ function getPageInscription(){
         if($password != $password_retype){
             $alert = "Les mots de passes saisis ne correspondent pas";
             require_once "views/back/inscription.php";
-        } else if (isNewPseudoValid($pseudo)== false){
+        } else if (isNewPseudoValid($login)== false){
             $alert = "Le pseudo est déjà utilisé";
             require_once "views/back/inscription.php";
         }
@@ -92,7 +92,7 @@ function getPageInscription(){
             setCompteConnexion($role, $login, $password, $enabled);
 
             //Pour créer le compte dans la table patient
-            $id = getIdUserByLogin($login)['id'];
+            $id = getIdUserByLogin($login);
             $commentaire = "No comment";
             setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse,  $date_naissance , $login , $password, $commentaire);
 

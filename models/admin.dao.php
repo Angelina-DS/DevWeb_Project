@@ -26,7 +26,7 @@ function getIdUserByLogin($login){
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":login",$login,PDO::PARAM_STR);
     $stmt->execute();
-    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
     $stmt->closeCursor();
     return $id;
 }
