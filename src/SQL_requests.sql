@@ -13,3 +13,9 @@ INSERT INTO client (nom, prenom, tel, mail, commentaire, identifiant_client, nai
  VALUES 
 ('Relou', 'Karen', '07 12 34 56 78', 'relou.karen@gmail.com', 'je veux parler au manager', 4, 28/02/1989)
 ('Guimonier', 'Guénolé', '06 22 74 78 31', 'guimonier.guenole@outlook.fr', 'merci !', 5, 09/09/1999)
+
+-- création d'une secrétaire
+
+INSERT INTO medecin (nom, prenom, mail, tel, bureau, identifiant_medecin)
+ VALUES
+('Nourhi', 'Lanelle', 'nourhi.lanelle@centre_medical.fr', '02 99 36 57 21', 101, 6)
