@@ -1,7 +1,7 @@
 <?php
 require_once "pdo.php";
 
-function getPasswordUser($id){
+function getPasswordUser($login){
     // Vérifie l'authentification : récupère le cypher à partir d'un identifiant de connexion
     $bdd = connexionPDO();
     $req = '
@@ -9,7 +9,7 @@ function getPasswordUser($id){
     FROM connexion 
     WHERE id = :id';
     $stmt = $bdd->prepare($req);
-    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
+    $stmt->bindValue(":id",$login,PDO::PARAM_STR);
     $stmt->execute();
     $person = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
@@ -26,9 +26,9 @@ function getIdUserByLogin($login){
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":login",$login,PDO::PARAM_STR);
     $stmt->execute();
-    $id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
+    $login = $stmt->fetch(PDO::FETCH_ASSOC)['login'];
     $stmt->closeCursor();
-    return $id;
+    return $login;
 }
 
 function getLogin($login){
@@ -61,7 +61,7 @@ function setCompteConnexion($role, $login, $password, $enabled){
 
 }
 
-function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse,  $date_naissance, $password , $email, $commentaire){
+function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse, $password , $email, $commentaire, $naissance){
     $bdd = connexionPDO();
     $req = '
     INSERT INTO patient (id_patient, nom, prenom, tel, mail, adresse, commentaire) VALUES (:id_patient, :nom, :prenom, :tel, :mail, :adresse, :commentaire)';
@@ -72,7 +72,8 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse,  $d
                 'tel' => $tel, 
                 'mail' => $mail, 
                 'adresse' => $adresse, 
-                'commentaire' => $commentaire, ];
+                'commentaire' => $commentaire,
+                'naissance' => $naissance,  ];
     $stmt->execute($donnees);
     $stmt->closeCursor();
 

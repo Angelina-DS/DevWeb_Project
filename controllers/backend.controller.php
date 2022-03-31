@@ -17,18 +17,30 @@ function getPageLogin(){
         $login = Securite::secureHTML($_POST['login']);
         $password = Securite::secureHTML($_POST['password']);
         if(isConnexionValid($login,$password)){
-            $_SESSION['acces'] = getRole($login);
+            $role = getRole($login);
+            $_SESSION['acces'] = $role ;
             Securite::genereCookiePassword();
-            header ("Location: admin");
+            getBonnePageAcceuil($role);                
         } else {
             $alert = "Mot de passe invalide";
-            $_SESSION['acces'] = "admin";
-            Securite::genereCookiePassword();
-            header ("Location: admin");
+            require_once "views/back/login.view.php";
+
         }
     }
 
     require_once "views/back/login.view.php";
+}
+
+function getBonnePageAcceuil($role){
+    if ($role == 1){
+        header ("Location: client");
+    } else if ($role == 2){
+        header ("Location: admin");
+    } else if ($role == 3 ) {
+        header ("Location: medecin");
+    } else {
+        header ("Location: accueil");
+    }
 }
 
 function getPageAdmin(){
@@ -69,7 +81,7 @@ function getPageInscription(){
 
         $nom = Securite::secureHTML($_POST['nom']);
         $prenom = Securite::secureHTML($_POST['prenom']);
-        $date_naissance = Securite::secureHTML($_POST['date_naissance']);
+        $naissance = Securite::secureHTML($_POST['date_naissance']);
         $login = Securite::secureHTML($_POST['pseudo']);
         $password = Securite::secureHTML($_POST['password']);
         $password_retype = Securite::secureHTML($_POST['password_retype']);
@@ -94,7 +106,7 @@ function getPageInscription(){
             //Pour créer le compte dans la table patient
             $id = getIdUserByLogin($login);
             $commentaire = "No comment";
-            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse,  $date_naissance , $login , $password, $commentaire);
+            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse , $login , $password, $commentaire, $naissance);
 
             require_once "views/back/login.view.php";
 

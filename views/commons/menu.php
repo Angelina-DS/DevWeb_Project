@@ -16,6 +16,8 @@
             </div>
         </li>
 
+        <?php if( $_SESSION['acces'] == 2 || $_SESSION['acces'] == 3){ ?>
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= COLOR_ADMINISTRATION ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Administration
@@ -29,6 +31,8 @@
                 <?php } ?>
             </div>
         </li>
+        <?php } ?>
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= COLOR_CONTACT ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Contacts
