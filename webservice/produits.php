@@ -1,6 +1,7 @@
 <?php
 	// Connect to database
 	include("db_connect.php");
+	include("../models/admin.dao.php");
 	$request_method = $_SERVER["REQUEST_METHOD"];
 
 	function getProducts()
@@ -49,7 +50,7 @@
 		{
 			$response=array(
 				'status' => 1,
-				'status_message' =>'Produit ajouté avec succès.'
+				'status_message' =>'Produit ajoutï¿½ avec succï¿½s.'
 			);
 		}
 		else
@@ -122,6 +123,18 @@
 	{
 		
 		case 'GET':
+			echo json_encode(testCreneaux());
+		default:
+			// Invalid Request Method
+			header("HTTP/1.0 405 Method Not Allowed");
+			break;
+	}
+
+	/*
+	switch($request_method)
+	{
+		
+		case 'GET':
 			// Retrive Products
 			if(!empty($_GET["id"]))
 			{
@@ -155,5 +168,5 @@
 			deleteProduct($id);
 			break;
 
-	}
+	}*/
 ?>

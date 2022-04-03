@@ -70,7 +70,7 @@ CREATE TABLE `medecin` (
 CREATE TABLE `horaire` (
   `id_horaire` int(11) NOT NULL,
   `id_medecin` int(11) NOT NULL,
-  `jour` date NOT NULL,
+  `jour` int(11) NOT NULL,
   `debut_matin` time NOT NULL,
   `fin_matin` time NOT NULL,
   `debut_aprem` time NOT NULL,

@@ -110,3 +110,95 @@ function getRole($id) {
     return $person["role"];
 
 }
+
+function getDoctors() {
+    $bdd = connexionPDO();
+    $req = 'SELECT * FROM medecin';
+    $stmt = $bdd->exec($req);
+    $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $medecins;
+}
+
+function getRendezVous($id_patient) {
+    $bdd = connexionPDO();
+    $req = 'SELECT * FROM rendez_vous WHERE id_patient = :id_patient';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id_patient",$id_patient,PDO::PARAM_INT);
+    $stmt->execute();
+    $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $medecins;
+}
+
+function makeRendezVous($id_patient,$id_medecin,$date,$heure,$commentaire) {
+    $bdd = connexionPDO();
+    $req = 'INSERT INTO rendez_vous VALUES(NULL,:id_patient,:id_medecin,:id_date,:id_heure,:id_commentaire)';
+    $stmt = $bdd->prepare($req);
+    $donnees = ['id_patient' => $id_patient, 
+                'id_medecin' => $id_medecin, 
+                'date' => $date, 
+                'heure' => $heure, 
+                'commentaire' => $commentaire];
+    $stmt->execute($donnees);
+    $medecins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $medecins;
+    
+}
+
+function getHorairesMedecin($id_medecin) {
+    $bdd = connexionPDO();
+    $req = 'SELECT * FROM horaire WHERE id_medecin = :id_medecin';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id_medecin",$id_medecin,PDO::PARAM_INT);
+    $stmt->execute();
+    $horaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $horaires;
+}
+
+function getHorairesMedecinJour($id_medecin,$jour) {
+    $bdd = connexionPDO();
+    $req = 'SELECT * FROM horaire WHERE id_medecin = :id_medecin AND jour = :jour';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id_medecin",$id_medecin,PDO::PARAM_INT);
+    $stmt->bindValue(":jour",$jour,PDO::PARAM_INT);
+    $stmt->execute();
+    $horaires = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $horaires;
+}
+
+function getCreneaux($jour,$id_medecin,$debut_matin,$fin_matin,$debug_aprem,$fin_aprem,$duree_creneau) {
+    $debut = "test";
+}
+
+function getCreneauxMedecinJour($id_medecin,$date) {
+    $bdd = connexionPDO();
+    $req = 'SELECT * FROM rendez_vous WHERE id_medecin = :id_medecin AND date = :date';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id_medecin",$id_medecin,PDO::PARAM_INT);
+    $stmt->bindValue(":date",$date,PDO::PARAM_STRING);
+    $stmt->execute();
+    $creneaux  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $creneaux;
+}
+
+
+function testCreneaux() {
+    $begin = new DateTime('2022-04-03');
+    $end = new DateTime('2022-04-10');
+    $interval = DateInterval::createFromDateString('1 day');
+    $period = new DatePeriod($begin, $interval, $end);
+
+    foreach ($period as $dt) {
+        echo $dt->format("w\n");
+        echo $dt->format("Y-m-d\n");
+        print_r (getCreneauxMedecinJour(12,$dt->format("Y-m-d")));
+    }
+    $horairesMedecinJour = getHorairesMedecinJour(12,1);
+
+    return($horairesMedecinJour);
+}
