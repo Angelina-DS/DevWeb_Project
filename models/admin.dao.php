@@ -1,7 +1,7 @@
 <?php
 require_once "pdo.php";
 
-function getPasswordUser($login){
+function getPasswordUser($id){
     // Vérifie l'authentification : récupère le cypher à partir d'un identifiant de connexion
     $bdd = connexionPDO();
     $req = '
@@ -9,7 +9,7 @@ function getPasswordUser($login){
     FROM connexion 
     WHERE id = :id';
     $stmt = $bdd->prepare($req);
-    $stmt->bindValue(":id",$login,PDO::PARAM_STR);
+    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
     $person = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
@@ -80,9 +80,10 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse , $c
 }
 
 function isConnexionValid($login,$password){
-    $person = getPasswordUser($login);
-    if ($person ){
-        return password_verify($password,$person['password']);
+    $id = getIdUserByLogin($login);
+    $person = getPasswordUser($id);
+    if ($person){
+        return password_verify($password,$person['cypher']);
     }
     return(false);
 }
@@ -93,4 +94,19 @@ function isNewPseudoValid($login){
         return False;
     }
     return(True);
+}
+
+function getRole($id) {
+    $bdd = connexionPDO();
+    $req = '
+    SELECT role
+    FROM connexion
+    WHERE id = :id';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+    $stmt->execute();
+    $person = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $person["role"];
+
 }

@@ -6,7 +6,7 @@ styleTitreNiveau1("Login", COLOR_ADMINISTRATION) ?>
     <form action="" method="post">
         <div>
             <label>User ID</label>
-            <input type="text" name="UserID">
+            <input type="text" name="login">
         </div>
 
         <div >
@@ -14,7 +14,7 @@ styleTitreNiveau1("Login", COLOR_ADMINISTRATION) ?>
             <input type="Password" name="password">
         <div >
 
-            <button type="submit" name="Login" class="button" onclick=isConnexionValid($login,$password)> Login</button>
+            <button type="submit" name="Login" class="button">Login</button>
         </div>
 
         <p>
