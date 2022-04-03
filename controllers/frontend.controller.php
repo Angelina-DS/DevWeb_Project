@@ -41,5 +41,5 @@ function getPageAjoutMedecin(){
     $title = "Ajouter un nouveau médecin";
     $description = "Pharmacon";
 
-    require_once "views/front/ajoutMedecin.php";
+    require_once "views/back/ajoutMedecin.php";
 }

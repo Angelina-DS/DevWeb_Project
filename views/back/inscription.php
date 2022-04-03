@@ -2,7 +2,7 @@
 
 <?php 
 ob_start(); 
-echo styleTitreNiveau1("Connexion : à venir ...",COLOR_TITLES);
+echo styleTitreNiveau1("Inscrivez-vous pour pouvoir vous connecter",COLOR_TITLES);
 ?>
 
 <!DOCTYPE html>

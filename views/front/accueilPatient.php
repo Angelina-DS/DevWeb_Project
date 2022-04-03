@@ -1,3 +1,5 @@
+<?php require_once "models/admin.dao.php"; ?>
+
 <?php 
 ob_start(); 
 echo styleTitreNiveau1("Accueil",COLOR_TITLES);
