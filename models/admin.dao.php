@@ -1,19 +1,19 @@
 <?php
 require_once "pdo.php";
 
-function getPasswordUser($id){
+function getPasswordUser($login){
     // Vérifie l'authentification : récupère le cypher à partir d'un identifiant de connexion
     $bdd = connexionPDO();
     $req = '
     SELECT cypher
     FROM connexion 
-    WHERE id = :id';
+    WHERE login = :login';
     $stmt = $bdd->prepare($req);
-    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
+    $stmt->bindValue(":login",$login,PDO::PARAM_STR);
     $stmt->execute();
-    $person = $stmt->fetch(PDO::FETCH_ASSOC);
+    $password = $stmt->fetch(PDO::FETCH_ASSOC)['cypher'];
     $stmt->closeCursor();
-    return $person;
+    return $password;
 }
 
 function getIdUserByLogin($login){
@@ -44,6 +44,21 @@ function getLogin($login){
     $person = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $person;
+}
+
+function getRole($login){
+    // Récupère le rôle dans la table connexion à l'aide du login
+    $bdd = connexionPDO();
+    $req = '
+    SELECT role
+    FROM connexion 
+    WHERE login = :login';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":login",$login,PDO::PARAM_STR);
+    $stmt->execute();
+    $role = $stmt->fetch(PDO::FETCH_ASSOC)['role'];
+    $stmt->closeCursor();
+    return $role;
 }
 
 function setCompteConnexion($role, $login, $password, $enabled){
@@ -80,10 +95,9 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse , $c
 }
 
 function isConnexionValid($login,$password){
-    $id = getIdUserByLogin($login);
-    $person = getPasswordUser($id);
-    if ($person){
-        return password_verify($password,$person['cypher']);
+    $cypher = getPasswordUser($login);
+    if ($cypher ){
+        return password_verify($password,$cypher);
     }
     return(false);
 }
