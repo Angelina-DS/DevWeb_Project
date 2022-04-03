@@ -18,7 +18,7 @@ function getPageLogin(){
         $password = Securite::secureHTML($_POST['password']);
         if(isConnexionValid($login,$password)){
             $id = getIdUserByLogin($login);
-            $role = getRole($id);
+            $role = getRoleByID($id);
             $_SESSION['id'] = $id;
             $_SESSION['login'] = $login;
             $_SESSION['acces'] = $role;

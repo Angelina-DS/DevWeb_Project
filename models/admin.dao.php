@@ -110,7 +110,7 @@ function isNewPseudoValid($login){
     return(True);
 }
 
-function getRole($id) {
+function getRoleByID($id) {
     $bdd = connexionPDO();
     $req = '
     SELECT role
