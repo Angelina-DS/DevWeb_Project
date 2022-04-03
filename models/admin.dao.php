@@ -1,7 +1,7 @@
 <?php
 require_once "pdo.php";
 
-function getPasswordUser($login){
+function getPasswordUser($id){
     // Vérifie l'authentification : récupère le cypher à partir d'un identifiant de connexion
     $bdd = connexionPDO();
     $req = '
@@ -9,7 +9,13 @@ function getPasswordUser($login){
     FROM connexion 
     WHERE login = :login';
     $stmt = $bdd->prepare($req);
+<<<<<<< HEAD
     $stmt->bindValue(":login",$login,PDO::PARAM_STR);
+||||||| merged common ancestors
+    $stmt->bindValue(":id",$login,PDO::PARAM_STR);
+=======
+    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
+>>>>>>> e1615e44558f8376096f38476b6565bedb5b054c
     $stmt->execute();
     $password = $stmt->fetch(PDO::FETCH_ASSOC)['cypher'];
     $stmt->closeCursor();
@@ -26,9 +32,9 @@ function getIdUserByLogin($login){
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":login",$login,PDO::PARAM_STR);
     $stmt->execute();
-    $login = $stmt->fetch(PDO::FETCH_ASSOC)['login'];
+    $id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
     $stmt->closeCursor();
-    return $login;
+    return $id;
 }
 
 function getLogin($login){
@@ -76,10 +82,10 @@ function setCompteConnexion($role, $login, $password, $enabled){
 
 }
 
-function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse, $password , $email, $commentaire, $naissance){
+function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse , $commentaire, $naissance){
     $bdd = connexionPDO();
     $req = '
-    INSERT INTO patient (id_patient, nom, prenom, tel, mail, adresse, commentaire) VALUES (:id_patient, :nom, :prenom, :tel, :mail, :adresse, :commentaire)';
+    INSERT INTO patient (id_patient, nom, prenom, tel, mail, adresse, commentaire, naissance) VALUES (:id_patient, :nom, :prenom, :tel, :mail, :adresse, :commentaire, :naissance)';
     $stmt = $bdd->prepare($req);
     $donnees = ['id_patient' => $id_patient, 
                 'nom' => $nom, 
@@ -88,16 +94,27 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse, $pa
                 'mail' => $mail, 
                 'adresse' => $adresse, 
                 'commentaire' => $commentaire,
-                'naissance' => $naissance,  ];
+                'naissance' => $naissance];
     $stmt->execute($donnees);
     $stmt->closeCursor();
 
 }
 
 function isConnexionValid($login,$password){
+<<<<<<< HEAD
     $cypher = getPasswordUser($login);
     if ($cypher ){
         return password_verify($password,$cypher);
+||||||| merged common ancestors
+    $person = getPasswordUser($login);
+    if ($person ){
+        return password_verify($password,$person['password']);
+=======
+    $id = getIdUserByLogin($login);
+    $person = getPasswordUser($id);
+    if ($person){
+        return password_verify($password,$person['cypher']);
+>>>>>>> e1615e44558f8376096f38476b6565bedb5b054c
     }
     return(false);
 }
@@ -108,4 +125,19 @@ function isNewPseudoValid($login){
         return False;
     }
     return(True);
+}
+
+function getRole($id) {
+    $bdd = connexionPDO();
+    $req = '
+    SELECT role
+    FROM connexion
+    WHERE id = :id';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+    $stmt->execute();
+    $person = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $person["role"];
+
 }

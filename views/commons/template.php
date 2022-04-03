@@ -35,6 +35,7 @@
             </div>
         </header>
         <!-- Contenu du site -->
+        <?php print_r($_SESSION) ?>
         <div class='border p-1 perso_minCorpSize px-5'>
             <?= $content ?>
         </div>

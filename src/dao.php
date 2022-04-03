@@ -142,6 +142,21 @@ function getIndispMedecin($id){
     return $creneaux;
 }
 
+function getDispMedecin($id){
+    // Liste des créneaux disponibles pour un médecin
+    $bdd = connexionPDO();
+    $req = '
+    SELECT debut_matin, fin_aprem
+    FROM horaire, rendez_vous
+    SET duree_rdv = 30 ';
+    $stmt = $bdd->prepare($req);
+    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
+    $stmt->execute();
+    $creneaux = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $creneaux;
+}
+
 function AddRdv($id_client, $id_med, $date, $heure, $com, $id_rdv){
     // Ajoute un rendez-vous dans la table rendez-vous
     $bdd = connexionPDO();

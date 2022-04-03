@@ -1,19 +1,25 @@
 <?php ob_start(); 
 styleTitreNiveau1("Login", COLOR_ADMINISTRATION) ?>
 
+
 <div class='m-5'>
-    <form action="" method="POST">
-        <div class="form-group row no-gutters align-items-center">
-            <label for="login" class="col-6 col-md-3 col-lg-2 text-right pr-5">Login : </label>
-            <input type="text" class="col-6 cold-md-9 col-lg-10 form-control" id="login" name="login" required/>
+    <form action="" method="post">
+        <div>
+            <label>User ID</label>
+            <input type="text" name="login">
         </div>
-        <div class="form-group row no-gutters align-items-center">
-            <label for="password" class="col-6 col-md-3 col-lg-2 text-right pr-5">Password : </label>
-            <input type="password" class="col-6 cold-md-9 col-lg-10 form-control" id="password" name="password" required/>
+
+        <div >
+            <label>Password</label>
+            <input type="Password" name="password">
+        <div >
+
+            <button type="submit" name="Login" class="button">Login</button>
         </div>
-        <div class="row no-gutters">
-            <input type="submit" value="Valider" class="col btn btn-primary">
-        </div>
+
+        <p>
+            Not a member? <a href="<?= URL ?>?page=inscription">Sign Up </a>
+        </p>
     </form>
 </div>
 

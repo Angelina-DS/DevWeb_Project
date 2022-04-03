@@ -17,8 +17,11 @@ function getPageLogin(){
         $login = Securite::secureHTML($_POST['login']);
         $password = Securite::secureHTML($_POST['password']);
         if(isConnexionValid($login,$password)){
-            $role = getRole($login);
-            $_SESSION['acces'] = $role ;
+            $id = getIdUserByLogin($login);
+            $role = getRole($id);
+            $_SESSION['id'] = $id;
+            $_SESSION['login'] = $login;
+            $_SESSION['acces'] = $role;
             Securite::genereCookiePassword();
             getBonnePageAcceuil($role);                
         } else {
@@ -27,6 +30,7 @@ function getPageLogin(){
 
         }
     }
+    $alert = "Tous les champs doivent être renseignés !";
 
     require_once "views/back/login.view.php";
 }
@@ -106,7 +110,7 @@ function getPageInscription(){
             //Pour créer le compte dans la table patient
             $id = getIdUserByLogin($login);
             $commentaire = "No comment";
-            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse , $login , $password, $commentaire, $naissance);
+            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse, $commentaire, $naissance);
 
             require_once "views/back/login.view.php";
 

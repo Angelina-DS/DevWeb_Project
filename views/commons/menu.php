@@ -5,6 +5,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+        <?php if(isset($_SESSION['acces']) && ($_SESSION['acces'] == 1)) { ?>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= COLOR_DOCTORS ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Prise de Rendez-Vous
@@ -15,8 +16,9 @@
                 <a class="dropdown-item <?= COLOR_DOCTORS ?>" href="<?= URL ?>docteur_3">Docteur 3</a>
             </div>
         </li>
+        <?php } ?>
 
-        <?php if( $_SESSION['acces'] == 2 || $_SESSION['acces'] == 3){ ?>
+        <?php if(isset($_SESSION['acces']) && ($_SESSION['acces'] == 2 || $_SESSION['acces'] == 3)){ ?>
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <?= COLOR_ADMINISTRATION ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
