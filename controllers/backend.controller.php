@@ -168,7 +168,7 @@ function getPageAjoutDocteur(){
             $id_medecin = getIdUserByLogin($login);
             setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau)
 
-            require_once "views/front/accueilDocteur.php";
+            require "views/front/accueilDocteur.php";
 
         }
 
