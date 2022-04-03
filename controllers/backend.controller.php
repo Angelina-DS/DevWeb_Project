@@ -166,7 +166,7 @@ function getPageAjoutDocteur(){
 
             //Pour créer le compte dans la table medecin
             $id_medecin = getIdUserByLogin($login);
-            setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau)
+            setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau);
 
             require_once "views/front/accueilDocteur.php";
 
