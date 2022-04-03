@@ -17,8 +17,11 @@ function getPageLogin(){
         $login = Securite::secureHTML($_POST['login']);
         $password = Securite::secureHTML($_POST['password']);
         if(isConnexionValid($login,$password)){
-            $role = getRole($login);
-            $_SESSION['acces'] = $role ;
+            $id = getIdUserByLogin($login);
+            $role = getRole($id);
+            $_SESSION['id'] = $id;
+            $_SESSION['login'] = $login;
+            $_SESSION['acces'] = $role;
             Securite::genereCookiePassword();
             getBonnePageAcceuil($role);                
         } else {
