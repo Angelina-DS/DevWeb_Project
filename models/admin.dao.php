@@ -46,15 +46,15 @@ function getLogin($login){
     return $person;
 }
 
-function getRole($login){
+function getRole($id){
     // Récupère le rôle dans la table connexion à l'aide du login
     $bdd = connexionPDO();
     $req = '
     SELECT role
     FROM connexion 
-    WHERE login = :login';
+    WHERE id = :id';
     $stmt = $bdd->prepare($req);
-    $stmt->bindValue(":login",$login,PDO::PARAM_STR);
+    $stmt->bindValue(":id",$id,PDO::PARAM_STR);
     $stmt->execute();
     $role = $stmt->fetch(PDO::FETCH_ASSOC)['role'];
     $stmt->closeCursor();
