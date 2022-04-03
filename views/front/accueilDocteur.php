@@ -6,7 +6,7 @@ echo styleTitreNiveau1("Accueil",COLOR_TITLES);
 ?>
 
 
-<p> modifier le menu Admin ici</p>
+<p> modifier le menu Docteur ici</p>
 
 
 <?php

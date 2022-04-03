@@ -29,19 +29,22 @@ function getPageLogin(){
             require_once "views/back/login.view.php";
 
         }
-    }
-    $alert = "Tous les champs doivent être renseignés !";
+    } else {
+        $alert = "Tous les champs doivent être renseignés !";
 
-    require_once "views/back/login.view.php";
+        require_once "views/back/login.view.php";
+
+    }
+
 }
 
 function getBonnePageAcceuil($role){
     if ($role == 1){
-        header ("Location: client");
+        require_once "views/front/accueilPatient.php";
     } else if ($role == 2){
-        header ("Location: admin");
+        require_once "views/front/accueilAdmin.php";
     } else if ($role == 3 ) {
-        header ("Location: medecin");
+        require_once "views/front/accueilDocteur.php";
     } else {
         header ("Location: accueil");
     }
@@ -117,10 +120,10 @@ function getPageInscription(){
         }
 
 
+    } else {
+        require_once "views/back/inscription.php";
     }
 
-
-    require_once "views/back/inscription.php";
 }
 
 function getPageAjoutDocteur(){
@@ -143,7 +146,7 @@ function getPageAjoutDocteur(){
 
         $nom = Securite::secureHTML($_POST['nom']);
         $prenom = Securite::secureHTML($_POST['prenom']);
-        $login = Securite::secureHTML($_POST['pseudo']);
+        $login = Securite::secureHTML($_POST['login']);
         $password = Securite::secureHTML($_POST['password']);
         $password_retype = Securite::secureHTML($_POST['password_retype']);
         $mail = Securite::secureHTML($_POST['email']);
@@ -168,13 +171,14 @@ function getPageAjoutDocteur(){
             $id_medecin = getIdUserByLogin($login);
             setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau);
 
-            require "views/front/accueilDocteur.php";
+            require_once "views/front/accueilDocteur.php";
 
         }
 
 
+    }else{
+        require_once "views/back/ajoutDocteur.php";
     }
 
 
-    require_once "views/back/ajoutDocteur.php";
 }
