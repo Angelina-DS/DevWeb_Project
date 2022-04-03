@@ -27,6 +27,7 @@ function getPageLogin(){
 
         }
     }
+    $alert = "Tous les champs doivent être renseignés !";
 
     require_once "views/back/login.view.php";
 }
@@ -106,7 +107,7 @@ function getPageInscription(){
             //Pour créer le compte dans la table patient
             $id = getIdUserByLogin($login);
             $commentaire = "No comment";
-            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse , $login , $password, $commentaire, $naissance);
+            setComptePatient($id, $nom, $prenom, $tel, $mail, $adresse, $commentaire, $naissance);
 
             require_once "views/back/login.view.php";
 

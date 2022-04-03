@@ -26,9 +26,9 @@ function getIdUserByLogin($login){
     $stmt = $bdd->prepare($req);
     $stmt->bindValue(":login",$login,PDO::PARAM_STR);
     $stmt->execute();
-    $login = $stmt->fetch(PDO::FETCH_ASSOC)['login'];
+    $id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
     $stmt->closeCursor();
-    return $login;
+    return $id;
 }
 
 function getLogin($login){
@@ -61,10 +61,10 @@ function setCompteConnexion($role, $login, $password, $enabled){
 
 }
 
-function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse, $password , $email, $commentaire, $naissance){
+function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse , $commentaire, $naissance){
     $bdd = connexionPDO();
     $req = '
-    INSERT INTO patient (id_patient, nom, prenom, tel, mail, adresse, commentaire) VALUES (:id_patient, :nom, :prenom, :tel, :mail, :adresse, :commentaire)';
+    INSERT INTO patient (id_patient, nom, prenom, tel, mail, adresse, commentaire, naissance) VALUES (:id_patient, :nom, :prenom, :tel, :mail, :adresse, :commentaire, :naissance)';
     $stmt = $bdd->prepare($req);
     $donnees = ['id_patient' => $id_patient, 
                 'nom' => $nom, 
@@ -73,7 +73,7 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse, $pa
                 'mail' => $mail, 
                 'adresse' => $adresse, 
                 'commentaire' => $commentaire,
-                'naissance' => $naissance,  ];
+                'naissance' => $naissance];
     $stmt->execute($donnees);
     $stmt->closeCursor();
 
