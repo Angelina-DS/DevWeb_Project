@@ -27,6 +27,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item <?= COLOR_ADMINISTRATION ?>" href="<?= URL ?>">Utilisateurs</a>
                 <a class="dropdown-item <?= COLOR_ADMINISTRATION ?>" href="<?= URL ?>">Pannel d'aministration</a>
+                <a class="dropdown-item <?= COLOR_ADMINISTRATION ?>" href="<?= URL ?>?page=ajout_medecin">Ajouter médecin</a>
                 <?php if(Securite::verifAccessSession()){ ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item perso_ColorAdminMenu" href="<?= URL ?>genererNewsAdmin">Gestion des news</a>

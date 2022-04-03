@@ -16,11 +16,11 @@ function getPageTest(){
     require_once "views/front/test.php";
 }
 
-function getPageAccueilClient(){
+function getPageAccueilPatient(){
     $title = "Page d'accueil";
     $description = "Pharmacon";
 
-    require_once "views/front/acceuilClient.php";
+    require_once "views/front/acceuilPatient.php";
 }
 
 function getPageAccueilAdmin(){
@@ -30,9 +30,16 @@ function getPageAccueilAdmin(){
     require_once "views/front/acceuilAdmin.php";
 }
 
-function getPageAccueilDoctor(){
+function getPageAccueilDocteur(){
     $title = "Page d'accueil";
     $description = "Pharmacon";
 
-    require_once "views/front/acceuilDoctor.php";
+    require_once "views/front/acceuilDocteur.php";
+}
+
+function getPageAjoutMedecin(){
+    $title = "Ajouter un nouveau médecin";
+    $description = "Pharmacon";
+
+    require_once "views/front/ajoutMedecin.php";
 }

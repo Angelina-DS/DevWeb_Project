@@ -14,11 +14,18 @@ try {
             break;
             case "login": getPageLogin();
             break;
-            case "admin": getPageAdmin();
+            
+            case "admin": getPageAccueilAdmin();
             break;
-            case "inscription": getPageInscription();
+            case "medecin": getPageAccueilDocteur();
+            break;
+            case "medecin": getPageAccueilPatient();
             break;
 
+            case "inscription": getPageInscription();
+            break;
+            case 'ajout_medecin': getPageAjoutMedecin();
+            break;
 
             case "error301": 
             case "error302": 
