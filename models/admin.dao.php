@@ -94,6 +94,22 @@ function setComptePatient($id_patient, $nom, $prenom, $tel, $mail, $adresse , $c
 
 }
 
+function setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau){
+    $bdd = connexionPDO();
+    $req = '
+    INSERT INTO medecin (id_medecin, nom, prenom, mail, tel, bureau) VALUES (:id_medecin, :nom, :prenom, :mail, :tel, :bureau)';
+    $stmt = $bdd->prepare($req);
+    $donnees = ['id_medecin' => $id_medecin, 
+                'nom' => $nom, 
+                'prenom' => $prenom, 
+                'mail' => $mail, 
+                'tel' => $tel, 
+                'bureau' => $bureau];
+    $stmt->execute($donnees);
+    $stmt->closeCursor();
+
+}
+
 function isConnexionValid($login,$password){
     $cypher = getPasswordUser($login);
     if ($cypher ){

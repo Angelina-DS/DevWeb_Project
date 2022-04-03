@@ -5,11 +5,8 @@ ob_start();
 echo styleTitreNiveau1("Accueil",COLOR_TITLES);
 ?>
 
-<html >
-    <body>
-		<p> modifier le menu Admin ici</p>
-</body>
-</html>
+<p> modifier le menu Admin ici</p>
+
 
 <?php
 $content = ob_get_clean();

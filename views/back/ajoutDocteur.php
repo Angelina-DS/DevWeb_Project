@@ -34,7 +34,7 @@ echo styleTitreNiveau1("Création d'un nouveau médecin",COLOR_TITLES);
                     <input type="text" name="telephone" placeholder="Téléphone" required="required" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="bureau" placeholder="Bureau" required="required" autocomplete="off">
+                    <input type="number" name="bureau" placeholder="Bureau" required="required" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Ajouter" class="col btn btn-primary">

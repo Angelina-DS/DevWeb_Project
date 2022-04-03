@@ -122,3 +122,59 @@ function getPageInscription(){
 
     require_once "views/back/inscription.php";
 }
+
+function getPageAjoutDocteur(){
+    $title = "Page de création d'un nouveau médecin";
+    $description = "Page d'ajout d'un nouveau médecin";
+
+    //if(Securite::verificationAccess()){
+    //    header ("Location: admin");
+    //}
+    $alert = "";
+
+    if(isset($_POST['nom']) && !empty($_POST['nom']) &&
+    isset($_POST['prenom']) && !empty($_POST['prenom']) &&
+    isset($_POST['login']) && !empty($_POST['login']) &&
+    isset($_POST['password']) && !empty($_POST['password']) &&
+    isset($_POST['password_retype']) && !empty($_POST['password_retype']) &&
+    isset($_POST['email']) && !empty($_POST['email']) &&
+    isset($_POST['telephone']) && !empty($_POST['telephone']) &&
+    isset($_POST['bureau']) && !empty($_POST['bureau'])){
+
+        $nom = Securite::secureHTML($_POST['nom']);
+        $prenom = Securite::secureHTML($_POST['prenom']);
+        $login = Securite::secureHTML($_POST['pseudo']);
+        $password = Securite::secureHTML($_POST['password']);
+        $password_retype = Securite::secureHTML($_POST['password_retype']);
+        $mail = Securite::secureHTML($_POST['email']);
+        $tel = Securite::secureHTML($_POST['telephone']);
+        $bureau = Securite::secureHTML($_POST['bureau']);
+
+
+        if($password != $password_retype){
+            $alert = "Les mots de passes saisis ne correspondent pas";
+            require_once "views/back/ajoutDocteur.php";
+        } else if (isNewPseudoValid($login)== false){
+            $alert = "Le pseudo est déjà utilisé";
+            require_once "views/back/ajoutDocteur.php";
+        }
+        else {
+            //Pour créer le compte dans la table connexion
+            $enabled = 1 ;
+            $role = 1;
+            setCompteConnexion($role, $login, $password, $enabled);
+
+            //Pour créer le compte dans la table medecin
+            $id_medecin = getIdUserByLogin($login);
+            setCompteDocteur($id_medecin, $nom, $prenom, $mail, $tel, $bureau)
+
+            require_once "views/front/accueilDocteur.php";
+
+        }
+
+
+    }
+
+
+    require_once "views/back/ajoutDocteur.php";
+}
