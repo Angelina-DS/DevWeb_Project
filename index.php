@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['acces'] == 1;
 require_once "controllers/backend.controller.php";
 require_once "controllers/frontend.controller.php";
 require_once "config/Securite.class.php";
